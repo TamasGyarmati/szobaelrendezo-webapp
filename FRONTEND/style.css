@@ -24,16 +24,26 @@ body {
 
 .div1 {
     display: flex;
+    flex-direction: row;
+    gap: 100px;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+}
+
+.div1 img {
+    width: 30%;
 }
 
 header {
-    position: absolute;
-    color: white;
-    font-size: 3rem;
+    color: #202c2d;
+    font-size: 5rem; /* Fontméretet javítsd ki */
     font-weight: bold;
-    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    background: transparent;
+    text-shadow: 0 1px #808d93, 1px 0 #cdd2d5, 1px 2px #808d93, 2px 1px #cdd2d5, 
+             2px 3px #808d93, 3px 2px #cdd2d5, 3px 4px #808d93, 4px 3px #cdd2d5, 
+             4px 5px #808d93, 5px 4px #cdd2d5, 5px 6px #808d93, 6px 5px #cdd2d5, 
+             6px 7px #808d93, 7px 6px #cdd2d5, 7px 8px #808d93, 8px 7px #cdd2d5;
 }
 
 .div2, .div3 {
@@ -119,7 +129,7 @@ th {
 }
 
 h1 {
-    font-size: 70px;
+    font-size: 90px;
     margin: 0;
 }
 
