@@ -37,10 +37,21 @@ body {
     margin: 0 auto;
 }
 
+.div2 ul li {
+    font-size: 30px;
+    list-style:decimal;
+}
+
 h1 {
+    font-size: 70px;
+    margin: 0;
+}
+
+h2 {
     font-size: 50px;
     margin: 0;
 }
+
 
 p {
     font-size: 35px;
