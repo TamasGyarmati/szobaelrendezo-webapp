@@ -37,7 +37,6 @@ body {
 
 header {
     color: #202c2d;
-    font-size: 5rem; /* Fontméretet javítsd ki */
     font-weight: bold;
     background: transparent;
     text-shadow: 0 1px #808d93, 1px 0 #cdd2d5, 1px 2px #808d93, 2px 1px #cdd2d5, 
@@ -89,6 +88,7 @@ table td {
     border: 2px solid black;
     border-radius: 20px;
     overflow: hidden;
+    margin-bottom: 0;
 }
 
 .btn-outline-warning { /* Valamennyire jó helyen van most */
@@ -167,12 +167,20 @@ p {
     margin: 0;
 }
 
-.btn-success, .btn-danger, .btn-outline-warning {
+.btn-success, .btn-danger, .btn-outline-warning, .btn-lg:hover {
     transition: transform 0.2s;
 }
 
-.btn-success:hover, .btn-danger:hover, .btn-outline-warning:hover {
+.btn-success:hover, .btn-danger:hover, .btn-outline-warning:hover, .btn-lg:hover {
     transform: scale(1.1);
+}
+
+.navbar-brand img {
+    transition: transform .4s;
+}
+
+.navbar-brand img:hover {
+    transform: scale(1.15);
 }
 
 .logos {
@@ -222,9 +230,9 @@ footer p {
 }
 
 .navbar a:hover {
-    color: grey;
+    color: black;
 }
 
-#bevezeto { scroll-margin-top: 250px; }
+#bevezeto { scroll-margin-top: 300px; }
 #mukodese { scroll-margin-top: 130px; }
 #szobarendezoNav { scroll-margin-top: 300px; }
