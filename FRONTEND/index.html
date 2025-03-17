@@ -33,10 +33,39 @@
         </div>
         <div class="div4">
             <div class="szoba-merete-div">
-                <label for="szoba-merete"><p>Szoba mérete:</p></label>
-                <input type="text" id="szoba-merete" placeholder="300x300">
-                <button type="button" class="btn btn-primary">Mentés</button>
+                <label for="szoba-merete"><p>Szoba mérete (cm x cm):</p></label>
+                <input type="text" id="szoba-merete" placeholder="pl. 300x300">
+                <button type="button" class="btn btn-success">Mentés</button>
+                <button type="button" class="btn btn-danger">Törlés</button>
             </div>
+            <table class="table">
+                <tr>
+                    <th>Tárgy neve</th>
+                    <th>Tárgy mérete</th>
+                    <th class="hozzaadas">Hozzáadás</th>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input-group mb-3">                
+                            <div class="form-floating">
+                              <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
+                              <label for="floatingInputGroup1">pl. Ágy</label>
+                            </div>
+                          </div>
+                    </td>
+                    <td>
+                        <div class="input-group mb-3">                
+                            <div class="form-floating">
+                              <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
+                              <label for="floatingInputGroup1">pl. 150x20</label>
+                            </div>
+                          </div>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-outline-warning">Hozzáad</button>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </body>
