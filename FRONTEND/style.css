@@ -134,3 +134,34 @@ p {
     transform: scale(1.1);
 }
 
+.logos {
+    text-align: center;
+}
+
+.logos img {
+    transition: transform .3s;
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+}
+
+.logos img:hover {
+    transform: scale(1.5);
+}
+
+.logos img:active {
+    opacity: 0.3;
+}
+
+#bottomhr {
+    margin: 30px 0;
+    height: 2px;
+    border: none;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9) 50%, rgba(0, 0, 0, 0));
+} 
+
+footer p {
+    font-size: 20px;
+    text-align: center;
+    margin: 20px 0;
+}
