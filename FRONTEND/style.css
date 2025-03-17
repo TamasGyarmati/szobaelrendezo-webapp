@@ -131,6 +131,29 @@ th {
 h1 {
     font-size: 90px;
     margin: 0;
+    transition: transform 0.4s ease-in-out;
+}
+
+h1:hover {
+    transform: scale(1.2);
+}
+
+.div1 img {
+    transform:
+      perspective(800px)
+      rotateY(-10deg) 
+      scale(0.95);
+    transition: 0.6s ease all;
+  }
+  
+.div1 img:hover {
+    transform:
+      perspective(800px)
+      rotateY(10deg)  
+      translateY(10px)
+      scale(1);
+    filter: blur(0) brightness(1);
+    opacity: 1;
 }
 
 h2 {
@@ -204,4 +227,4 @@ footer p {
 
 #bevezeto { scroll-margin-top: 250px; }
 #mukodese { scroll-margin-top: 130px; }
-#szobarendezoNav { scroll-margin-top: 200px; }
+#szobarendezoNav { scroll-margin-top: 300px; }
