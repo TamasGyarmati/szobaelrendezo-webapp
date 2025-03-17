@@ -125,3 +125,12 @@ p {
     text-align: justify;
     margin: 0;
 }
+
+.btn-success, .btn-danger, .btn-outline-warning {
+    transition: transform 0.2s;
+}
+
+.btn-success:hover, .btn-danger:hover, .btn-outline-warning:hover {
+    transform: scale(1.1);
+}
+
