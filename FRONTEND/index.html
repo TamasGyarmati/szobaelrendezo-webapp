@@ -8,18 +8,38 @@
     <title>Main page</title>
 </head>
 <body>
-    <nav>nav</nav>
+    <nav class="navbar navbar-expand-lg bg-body-transparent">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#" style="display: inline-block; width: fit-content;"><img src="/SZOBAELRENDEZO_O7Y5MK_GYARMATI/FRONTEND/pictures/room.png" alt="" style="width: 50px; margin-left: 15px;"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto gap-4">
+              <li class="nav-item">
+                <a class="nav-link" href="#bevezeto">Bevezető</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#mukodese">Működése</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#szobarendezoNav">Szobarendező</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
     <div class="parent">
         <div class="div1">
             <header><h1>Szobaelrendező</h1></header>
         </div>
         <div class="div2">
-            <p>
+            <p id="bevezeto">
                 Üdvözlünk a szoba berendezési terv generálójában! Ez az eszköz segít vizuálisan megtervezni és elrendezni a bútorokat a szobában, figyelembe véve azok méreteit és a rendelkezésre álló teret.
             </p>
         </div>
         <div class="div3">
-            <h2>
+            <h2 id="mukodese">
                 Hogyan működik?
             </h2>
             <ul>
@@ -33,7 +53,7 @@
             </p>
         </div>
         <div class="div4">
-            <div class="szoba-merete-div">
+            <div class="szoba-merete-div" id="szobarendezoNav">
                 <label for="szoba-merete"><p>Szoba mérete (cm x cm):</p></label>
                 <input type="text" id="szoba-merete" placeholder="pl. 300x300">
                 <button type="button" class="btn btn-success">Mentés</button>
