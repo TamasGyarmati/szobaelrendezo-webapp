@@ -233,3 +233,44 @@ addBtn.addEventListener("click", function() {
     document.getElementById("floatingInputGroup3").value = "";
     displayItems();
 });
+
+// Koordináták lekérése
+function fetchCoordinates() {
+    return fetch("http://localhost:5166/api/RoomPlanner/generate")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Hálózati hiba vagy nincs szoba adat!");
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Elhelyezett tárgyak koordinátái: ", data);
+            return data;
+        })
+        .catch(error => {
+            console.error("Hiba történt: ", error);
+        });
+}
+
+// Szoba megjelenítés generálás gombra
+generateBtn.addEventListener("click", function () {
+    if (roomData.area !== null) {
+        fetchCoordinates().then(coords => {
+            if (coords) {
+                const rendered = renderItemsInRoom(coords);
+                console.log("Renderelt: " + rendered);
+                if (rendered) {
+                    // Csak akkor görgessen le, ha sikerült a generálás
+                    let offset = 350;
+                    const elementPosition = roomElement.getBoundingClientRect().top + window.pageYOffset;
+                    window.scrollTo({
+                        top: elementPosition - offset,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    } else {
+        AlertWrite(lightAlert, "<strong>Még nem adtál meg adatokat!</strong>");
+    }
+});
