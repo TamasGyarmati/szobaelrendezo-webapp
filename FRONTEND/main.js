@@ -121,3 +121,115 @@ saveBtn.addEventListener("click", function() {
     roomWidthInput.value = "";
     roomHeightInput.value = "";
 });
+
+// Tárgy hozzáadása
+addBtn.addEventListener("click", function() {
+    const itemName = document.getElementById("floatingInputGroup1").value;
+    const itemWidth = parseFloat(document.getElementById("floatingInputGroup2").value);
+    const itemHeight = parseFloat(document.getElementById("floatingInputGroup3").value);
+    const itemArea = (itemWidth * itemHeight) / 10000;
+    const newRoomWidth = roomData.width;
+    const newRoomHeight = roomData.height; 
+    warningAlert.classList.add("d-none");
+
+    // Hibaüzenetek
+    if (roomData.area == null) {
+        AlertWrite(warningAlert, "<strong>Először a szoba méretét határozd meg!</strong>");
+        return;
+    }
+    if (!itemName || isNaN(itemWidth) || isNaN(itemHeight) || itemWidth <= 0 || itemHeight <= 0) {
+        AlertWrite(warningAlert, "<strong>Adj meg érvényes nevet és méretet!</strong>");
+        return;
+    }
+    if (itemWidth > newRoomWidth || itemHeight > newRoomHeight || itemArea > roomData.area) {
+        AlertWrite(warningAlert, "<strong>A tárgy biztosan nem fér bele a szobába!</strong>");
+        return;
+    }
+
+    // Tárgyak hozzáadása a tömbhöz
+    items.push({ itemName, itemArea, itemWidth, itemHeight });
+
+    // Ellenőrzés, hogy az eddigi elemek összmérete meghaladja-e a szoba összméretét
+    let sumArea = (items.reduce((sum, element) => sum + element.itemArea, 0));
+
+    if (sumArea > roomData.area){
+        items.pop({ itemName, itemArea, itemWidth, itemHeight });
+        AlertWrite(warningAlert, "<strong>Az össznégyzet méter-t meghaladja!</strong>");
+        return;
+    }
+
+    // Tárgy hozzáadása szerveroldalon
+    fetch(apiUrlItem, {
+        method: "POST",
+        headers: { "Content-Type" : "application/json", },
+        body: JSON.stringify({
+            name: itemName,
+            width: itemWidth,
+            height: itemHeight
+        })
+    })
+    .then(resp => {
+        console.log("Response: ", resp);
+        displayItems();
+    })
+    .catch(error => console.log(error))
+
+    // Táblázathoz új sor hozzáadása
+    const table = document.getElementById("itemsTable");
+    const row = table.insertRow();
+
+    // Cellákba való értékek beszúrása
+    row.insertCell(0).textContent = itemName;
+    row.insertCell(1).textContent = itemWidth + "x" + itemHeight + "cm" + " (" + itemArea + "m²)";
+
+    // Törlés gomb létrehozása
+    const deleteCell = row.insertCell(2);
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Törlés";
+    deleteBtn.classList.add("btn", "btn-danger");
+    deleteBtn.addEventListener("click", async function() {
+        const itemNameToDelete = row.cells[0].textContent;
+        const itemIndex = items.findIndex(item => item.itemName === itemNameToDelete);
+        
+        if (itemIndex > -1) {
+            try {            
+                const response = await fetch(apiUrlItem);
+                const dbItems = await response.json();
+                
+                // Megkeressük a nevet a kapott adatok között
+                const dbItem = dbItems.find(item => item.name === itemNameToDelete);
+                
+                if (dbItem && dbItem.id) {
+                    // Ha találtunk azonosítót, akkor töröljük az adatbázisból
+                    await fetch(`${apiUrlItem}/${dbItem.id}`, {
+                        method: "DELETE"
+                    });
+                    
+                    // Ha sikeres volt, töröljük a memóriából és a táblázatból
+                    items.splice(itemIndex, 1);
+                    table.deleteRow(row.rowIndex);
+
+                    // Frissítjük a szoba div-t is
+                    const roomItems = document.querySelectorAll(".item");
+                    roomItems.forEach(item => {
+                        item.remove();
+                    });
+                    
+                    displayItems();
+                } else {
+                    AlertWrite(warningAlert, "<strong>Nem található az elem azonosítója!</strong>");
+                }
+            } catch (error) {
+                console.error("Hiba történt:", error);
+                AlertWrite(warningAlert, "<strong>Hiba történt a törlés során!</strong>");
+            }
+        }
+    });
+    deleteCell.appendChild(deleteBtn);
+
+    // Input mezők törlése
+    document.getElementById("floatingInputGroup1").value = "";
+    document.getElementById("floatingInputGroup2").value = "";
+    document.getElementById("floatingInputGroup3").value = "";
+    displayItems();
+});
