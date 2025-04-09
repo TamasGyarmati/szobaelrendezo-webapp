@@ -274,3 +274,100 @@ generateBtn.addEventListener("click", function () {
         AlertWrite(lightAlert, "<strong>Még nem adtál meg adatokat!</strong>");
     }
 });
+
+function renderItemsInRoom(coords) {
+    let renderedSomething = false;
+    if (items.length === 0) { renderedSomething = true; } // Ha csak szobát generálok tárgyak nélkül
+
+    // A szoba feldolgozása
+    parentElement.classList.add("parentTr"); // Gridhez való hozzáadás
+    roomElement.classList.add("room");
+    roomElement.style.width = roomData.width + "px";
+    roomElement.style.height = roomData.height + "px";
+
+    // A tárgyak feldolgozása
+    for (let i = 0; i < items.length; i++) {
+        if (coords[i] !== undefined) {
+
+            const itemElement = document.createElement("div");
+            lightAlert.classList.add("d-none");
+            itemElement.classList.remove("show");
+            itemElement.classList.add("item");                        
+            itemElement.style.width = items[i].itemWidth + "px";
+            itemElement.style.height = items[i].itemHeight + "px";
+            itemElement.style.left = coords[i].x + "px";
+            itemElement.style.top = coords[i].y + "px";
+            itemElement.innerText = items[i].itemName;
+            itemElement.style.backgroundColor = RandomColor();
+
+            roomElement.appendChild(itemElement);
+
+            setTimeout(() => {
+                itemElement.classList.add("show");
+            }, 10);
+
+            renderedSomething = true; // Sikeres renderelés
+        } else {
+            renderedSomething = false; // Sikertelen renderelés
+            AlertWrite(lightAlert, "<strong>Több elemet már nem lehet berakni!</strong>");
+            removeLastItem(); // Azért kell törölni, mert ilyenkor már bekerült a tömbbe és az adatbázisba!
+        }
+    }
+    return renderedSomething; // Görgetéshez kell
+}
+
+async function removeLastItem() {
+    const table = document.getElementById("itemsTable");
+
+    // Ellenőrzés, hogy van-e egyáltalán sor a táblázatban
+    if (table.rows.length === 0) {
+        AlertWrite(lightAlert, "<strong>Nincs kitörölhető elem a táblázatban!</strong>");
+        return;
+    }
+
+    // A táblázat utolsó sorának törlése
+    const lastRow = table.rows[table.rows.length - 1];
+    table.deleteRow(lastRow.rowIndex); 
+
+    // A legutolsó elem törlése az items tömbből
+    const lastItem = items.pop();
+
+    if (!lastItem) {
+        AlertWrite(lightAlert, "<strong>Nem található törlendő elem a memóriában!</strong>");
+        return;
+    }
+
+    // Törlés az adatbázisból az utolsó előfordulás alapján
+    try {
+        const response = await fetch(apiUrlItem);
+        const dbItems = await response.json();
+
+        // Megkeressük az utolsó előfordulást, amely egyezik a tárgy nevével
+        const lastIndex = dbItems.map(item => item.name).lastIndexOf(lastItem.itemName);
+
+        if (lastIndex !== -1) {
+            const dbItem = dbItems[lastIndex];
+            if (dbItem && dbItem.id) {
+                // Az adatbázisból való törlés
+                await fetch(`${apiUrlItem}/${dbItem.id}`, { method: "DELETE" });
+            }
+        }
+    } catch (error) {
+        console.error("Hiba történt az automatikus törlés során: ", error);
+    }
+    displayItems();
+}
+
+// Véletlen szín generálás
+function RandomColor() {
+    let red = Math.floor(Math.random()*255);
+    let green = Math.floor(Math.random()*255);
+    let blue = Math.floor(Math.random()*255);
+    let rgb = "rgb("+ red +","+ green +","+ blue +")";
+    return rgb;
+}
+
+// Form újratöltés megakadályozása
+document.getElementById("myForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+});
