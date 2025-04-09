@@ -8,6 +8,7 @@
     <title>Szobaelrendező</title>
 </head>
 <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <nav class="navbar navbar-expand-lg bg-body-transparent">
         <div class="container-fluid">
           <a class="navbar-brand" href="#" style="display: inline-block; width: fit-content;"><img src="/SZOBAELRENDEZO_O7Y5MK_GYARMATI/FRONTEND/pictures/plans.png" alt="" style="width: 50px; margin-left: 15px;"></a>
@@ -15,8 +16,8 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto gap-4">
-              <li class="nav-item">
+            <ul class="navbar-nav ms-auto d-flex flex-column align-items-end d-lg-flex flex-lg-row gap-5">
+              <li class="nav-item">          
                 <a class="nav-link" href="#bevezeto">Bevezető</a>
               </li>
               <li class="nav-item">
@@ -32,17 +33,17 @@
           </div>
         </div>
     </nav>
-    <div class="parent">
-        <div class="div1">
+    <div class="parent" id="parentgrid">
+        <div class="div1 block">
             <img src="/SZOBAELRENDEZO_O7Y5MK_GYARMATI/FRONTEND/pictures/plans.png" alt="">
             <header><h1>Szobaelrendező</h1></header>
         </div>
-        <div class="div2">
+        <div class="div2 block">
             <p id="bevezeto">
                 Üdvözlünk a szoba berendezési terv generálójában! Ez az eszköz segít vizuálisan megtervezni és elrendezni a bútorokat a szobádban, figyelembe véve azok méreteit és a rendelkezésre álló teret.
             </p>
         </div>
-        <div class="div3">
+        <div class="div3 block">
             <h2 id="mukodese">
                 Hogyan működik?
             </h2>
@@ -50,49 +51,67 @@
                 <li>Adja meg a szoba méreteit - A szélességet és hosszúságot centiméterben (legfeljebb egy tizedesjegy pontossággal)</li>
                 <li>Adja meg a bútorok listáját - Minden bútordarabhoz adja meg a nevét, szélességét és hosszúságát centiméterben</li>
                 <li>Automatikus elrendezés - Az algoritmus elhelyezi a bútorokat a szobában úgy, hogy ne fedjék egymást</li>
-                <li>Táblázatos megjelenítés - A szoba egy rácsos formában jelenik meg, ahol minden cella 10 cm-t reprezentál. A nagyobb bútorokat (pl. egy ágy) megfelelő méretű cellákkal egyesítve és színezve jelenítjük meg</li>
+                <li>Táblázatos megjelenítés - A szoba egy négyzetes formában jelenik meg, ahol minden kis négyzet véletlenszerű színnel rendelkezik és a bútor nevét hordozza.</li>
             </ul>
         </div>
-        <div class="div4">
+        <div class="div4 block">
             <p>
                 Próbálja ki most, és tervezze meg álmai szobáját egyszerűen és gyorsan!
             </p>
-            <div class="szoba-merete-div" id="szobarendezoNav">
-                <label for="szoba-merete"><p>Szoba mérete (cm x cm):</p></label>
-                <input type="text" id="szoba-merete" placeholder="pl. 300x300">
-                <button type="button" class="btn btn-success">Mentés</button>
-                <button type="button" class="btn btn-danger">Törlés</button>
+            <div id="danger-alert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <table class="table">
-                <tr>
-                    <th>Tárgy neve</th>
-                    <th>Tárgy mérete</th>
-                    <th class="hozzaadas">Hozzáadás</th>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="input-group mb-3">                
-                            <div class="form-floating">
-                              <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-                              <label for="floatingInputGroup1">pl. Ágy</label>
-                            </div>
+            <div class="szoba-merete-div" id="szobarendezoNav">
+                <label for="szoba-merete"><p id="szoba-size-p-tag">Szoba mérete:</p></label>
+                <input type="text" id="szoba-merete-1" placeholder="Szélesség">
+                <input type="text" id="szoba-merete-2" placeholder="Hosszúság">
+                <button type="button" id="save-btn" class="btn btn-success">Mentés</button>
+            </div>
+            <div id="warning-alert" class="alert alert-warning alert-dismissible fade show d-none" role="alert">
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>        
+            <form id="myForm">
+              <table class="table" id="itemsTable">
+                  <tr>
+                      <th>Tárgy neve</th>
+                      <th>Tárgy mérete</th>
+                      <th class="hozzaadas">Hozzáadás / Törlés</th>
+                  </tr>
+                  <tr>
+                      <td>
+                          <div class="input-group mb-3">                
+                              <div class="form-floating">
+                                <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
+                                <label for="floatingInputGroup1">pl. Ágy</label>
+                              </div>
                           </div>
-                    </td>
-                    <td>
-                        <div class="input-group mb-3">                
-                            <div class="form-floating">
-                              <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-                              <label for="floatingInputGroup1">pl. 150x20</label>
-                            </div>
+                      </td>
+                      <td class="szelesseg-magassag">
+                          <div class="input-group mb-3 div-szelesseg">                
+                              <div class="form-floating">
+                                <input type="text" class="form-control" id="floatingInputGroup2" placeholder="Username">
+                                <label for="floatingInputGroup2">Szélesség</label>
+                              </div>
                           </div>
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-outline-warning">Hozzáad</button>
-                    </td>
-                </tr>
-            </table>
-            <!-- Jöhet majd a hozzáadás reaktív cuccok -->
-            <button type="button" class="btn btn-primary btn-lg">Generálás</button>
+                          <div class="input-group mb-3 div-magassag">                
+                            <div class="form-floating">
+                              <input type="text" class="form-control" id="floatingInputGroup3" placeholder="Username">
+                              <label for="floatingInputGroup3">Hosszúság</label>
+                            </div>
+                        </div>
+                      </td>
+                      <td>
+                          <button type="submit" class="btn btn-outline-warning" id="add-btn">Hozzáad</button>
+                      </td>
+                  </tr>
+              </table>
+            </form>
+            <div id="light-alert" class="alert alert-info alert-dismissible fade show d-none" role="alert">
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>  
+            <button type="button" class="btn btn-primary btn-lg" id="generateBtn">Generálás</button>            
+        </div>
+        <div class="div5" id="room">
         </div>
     </div>
     <hr id="bottomhr">
@@ -104,5 +123,6 @@
     <footer>
         <p><b>© 2025 Tamas Gyarmati. All Rights Reserved.</b></p>
     </footer>
+<script src="main.js"></script>
 </body>
 </html>     
