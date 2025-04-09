@@ -19,3 +19,48 @@ let warningAlert = document.getElementById("warning-alert");
 
 // Szoba méretének beállítása és UI frissítés
 let roomData = { width: null, height: null, area: null};
+
+// Az tárgyak és szoba értékeinek nullázása szerveroldalon (oldal frissítéskor)
+window.onload = function () {
+    fetch(apiUrlItem, {
+        method: "DELETE"
+    })
+    .then(resp => {
+        console.log("Itemek törlődtek: ", resp);
+        fetch(apiUrlRoom, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                id: 1,
+                width: 0,
+                height: 0
+            })
+        })
+        .then(resp => {
+            console.log("Szoba törlődött: ", resp);
+        })
+    })
+    .catch(error => console.log(error));
+}; 
+
+// Displayek
+async function displayRoom() {
+    const response = await fetch(apiUrlRoomById);
+    const room = await response.json(); 
+    console.log("Display room: " + room);
+}
+
+async function displayItems() {
+    const response = await fetch(apiUrlItem);
+    const items = await response.json();
+    console.log("Display items: " + items);
+}
+
+displayItems();
+displayRoom();
+
+// Alerteket kiíró fv.
+function AlertWrite(x, y) {
+    x.innerHTML = y;
+    x.classList.remove("d-none");
+}
