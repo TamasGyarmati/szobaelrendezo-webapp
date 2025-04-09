@@ -1,8 +1,8 @@
 // Tárgyak listája
 const items = [];
-const apiUrlItem = "http://localhost:5166/item";
-const apiUrlRoom = "http://localhost:5166/room";
-const apiUrlRoomById = "http://localhost:5166/room/1";
+const apiUrlItem = "http://localhost:5090/item";
+const apiUrlRoom = "http://localhost:5090/room";
+const apiUrlRoomById = "http://localhost:5090/room/1";
 
 // DOM elemek kiválasztása
 let saveBtn = document.getElementById("save-btn");
@@ -236,7 +236,7 @@ addBtn.addEventListener("click", function() {
 
 // Koordináták lekérése
 function fetchCoordinates() {
-    return fetch("http://localhost:5166/api/RoomPlanner/generate")
+    return fetch("http://localhost:5090/api/RoomPlanner/generate")
         .then(response => {
             if (!response.ok) {
                 throw new Error("Hálózati hiba vagy nincs szoba adat!");
