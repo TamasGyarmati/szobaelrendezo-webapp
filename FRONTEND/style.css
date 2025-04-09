@@ -337,3 +337,96 @@ footer p {
 #bevezeto { scroll-margin-top: 300px; }
 #mukodese { scroll-margin-top: 130px; }
 #szobarendezoNav { scroll-margin-top: 300px; }
+
+/* Responsive Media Queries */
+
+/* Small devices (phones, 600px and down) */
+@media screen and (max-width: 600px) {
+    .parent {
+        grid-template-rows: auto;
+        gap: 100px;  /* Térköz a sorok között */
+    }
+
+    .div1 {
+        flex-direction: column;
+        gap: 30px;
+        height: auto;
+        padding: 20px 0;
+    }
+
+    .div1 img {
+        width: 70%;
+    }
+
+    h1 {
+        font-size: 50px;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 35px;
+        text-align: center;
+    }
+
+    p {
+        font-size: 20px;
+    }
+
+    .div2, .div3, .div4 {
+        width: 90%;
+    }
+
+    .div3 ul {
+        padding-left: 40px;
+    }
+
+    .div3 ul li {
+        font-size: 20px;
+        padding: 10px 0;
+    }
+
+    .szoba-merete-div {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .szoba-merete-div input[type="text"] {
+        width: 50%;
+    }
+
+    .navbar {
+        position: relative;
+    }
+
+    .navbar a {
+        font-size: 16px;
+    }
+}
+
+/* Medium devices (tablets, 601px to 1100px?) */
+@media screen and (min-width: 601px) and (max-width: 1100px) {
+    .div1 {
+        gap: 50px;
+    }
+
+    .div1 img {
+        width: 20%;
+    }
+
+    h1 {
+        font-size: 60px;
+    }
+
+    h2 {
+        font-size: 40px;
+    }
+
+    p {
+        font-size: 25px;
+    }
+
+    .div2, .div3, .div4 {
+        width: 80%;
+    }
+}
