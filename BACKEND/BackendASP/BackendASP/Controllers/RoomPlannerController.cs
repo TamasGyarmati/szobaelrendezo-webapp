@@ -13,7 +13,7 @@ public class RoomPlannerController : ControllerBase
     {
         this.context = context;
     }
-
+    
     [HttpGet("generate")]
     public IActionResult GenerateRoomPlan()
     {
