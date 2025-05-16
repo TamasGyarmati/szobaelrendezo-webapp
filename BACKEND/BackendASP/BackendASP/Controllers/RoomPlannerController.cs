@@ -16,15 +16,15 @@ public class RoomPlannerController : ControllerBase
         this.itemRepo = itemRepo;
     }
     
-    [HttpGet("generate")]
-    public IActionResult GenerateRoomPlan()
-    {
-        var roomData = roomRepo.Read(1);
-        if (roomData == null)
-        {
-            return NotFound("Nincs elérhető szoba adat.");
-        }
+    // Ilyenkor lehet több hibaágat kezelni pl.: NotFound, Ok (http:200)
+    // public IActionResult GenerateRoomPlan()
+    // return NotFound("Nincs elérhető szoba adat.");
+    // return Ok(coordinates);
 
+    [HttpGet("generate")]
+    public List<Coordinates> GenerateRoomPlan()
+    {
+        var roomData = roomRepo.Read(1) ?? throw new Exception("Nincs elérhető szoba adat."); // 500 Internal Server Error;
         var items = itemRepo.Read().ToList();
 
         Room room = new Room { Width = roomData.Width, Height = roomData.Height };
@@ -40,6 +40,6 @@ public class RoomPlannerController : ControllerBase
             }
         }
 
-        return Ok(coordinates);
+        return coordinates;
     }
 }
