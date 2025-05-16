@@ -8,22 +8,24 @@ namespace BackendASP.Controllers;
 [Route("api/[controller]")]
 public class RoomPlannerController : ControllerBase
 {
-    AppDbContext context;
-    public RoomPlannerController(AppDbContext context)
+    IRoomRepository roomRepo;
+    IItemRepository itemRepo;
+    public RoomPlannerController(IRoomRepository roomRepo, IItemRepository itemRepo)
     {
-        this.context = context;
+        this.roomRepo = roomRepo;
+        this.itemRepo = itemRepo;
     }
     
     [HttpGet("generate")]
     public IActionResult GenerateRoomPlan()
     {
-        var roomData = context.Rooms.FirstOrDefault();
+        var roomData = roomRepo.Read(1);
         if (roomData == null)
         {
             return NotFound("Nincs elérhető szoba adat.");
         }
 
-        var items = context.Items.ToList();
+        var items = itemRepo.Read().ToList();
 
         Room room = new Room { Width = roomData.Width, Height = roomData.Height };
         RoomPlanner planner = new RoomPlanner(room);
