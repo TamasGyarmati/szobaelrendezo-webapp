@@ -1,6 +1,6 @@
 using BackendASP.Models;
 
-namespace BackendASP.Data;
+namespace BackendASP.Services;
 
 public interface IRoomPlannerService
 {

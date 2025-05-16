@@ -1,7 +1,6 @@
 using BackendASP.Models;
 
-namespace BackendASP.Data;
-
+namespace BackendASP.Services;
 public class RoomPlanner
 {
     Room room;

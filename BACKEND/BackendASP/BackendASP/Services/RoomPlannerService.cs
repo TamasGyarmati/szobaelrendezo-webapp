@@ -1,7 +1,7 @@
+using BackendASP.Data;
 using BackendASP.Models;
 
-namespace BackendASP.Data;
-
+namespace BackendASP.Services;
 public class RoomPlannerService : IRoomPlannerService
 {
     IRoomRepository roomRepo;
