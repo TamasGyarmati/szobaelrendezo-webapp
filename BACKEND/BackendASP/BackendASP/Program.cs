@@ -6,6 +6,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddTransient<IItemRepository, ItemRepository>();
 builder.Services.AddTransient<IRoomRepository, RoomRepository>();
+builder.Services.AddTransient<IRoomPlannerService, RoomPlannerService>();
 
 // Swagger
 builder.Services.AddSwaggerGen();
