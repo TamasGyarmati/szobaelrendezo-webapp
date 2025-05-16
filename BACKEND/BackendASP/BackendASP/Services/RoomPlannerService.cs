@@ -23,8 +23,7 @@ public class RoomPlannerService : IRoomPlannerService
         var roomData = roomRepo.Read(roomId) ?? throw new Exception("Nincs elérhető szoba adat.");
         var items = itemRepo.Read().ToList();
 
-        Room room = new Room { Width = roomData.Width, Height = roomData.Height };
-        RoomPlanner planner = new RoomPlanner(room);
+        RoomPlanner planner = new RoomPlanner(roomData.Height, roomData.Width);
         List<Coordinates> coordinates = new List<Coordinates>();
 
         foreach (var item in items)

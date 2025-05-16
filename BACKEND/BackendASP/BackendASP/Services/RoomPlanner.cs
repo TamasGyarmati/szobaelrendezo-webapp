@@ -3,27 +3,32 @@ using BackendASP.Models;
 namespace BackendASP.Services;
 public class RoomPlanner
 {
-    Room room;
+    int height;
+    int width;
     string[,] grid;
-    public RoomPlanner(Room room)
+
+    public RoomPlanner(int height, int width)
     {
-        this.room = room;
-        grid = new string[room.Height, room.Width];
-        for (int i = 0; i < room.Height; i++)
+        this.height = height;
+        this.width = width;
+        
+        grid = new string[height, width];
+        for (int i = 0; i < height; i++)
         {
-            for (int j = 0; j < room.Width; j++)
+            for (int j = 0; j < width; j++)
             {
                 grid[i, j] = ".";
             }
         }
     }
+
     bool CanPlaceFurniture(int startX, int startY, Item item)
     {
         for (int i = 0; i < item.Height; i++)
         {
             for (int j = 0; j < item.Width; j++)
             {
-                if (startX + i >= room.Height || startY + j >= room.Width || grid[startX + i, startY + j] != ".")
+                if (startX + i >= height || startY + j >= width || grid[startX + i, startY + j] != ".")
                 {
                     return false;
                 }
@@ -34,9 +39,9 @@ public class RoomPlanner
 
     public Coordinates TryPlaceFurniture(Item item)
     {
-        for (int i = 0; i <= room.Height - item.Height; i++)
+        for (int i = 0; i <= height - item.Height; i++)
         {
-            for (int j = 0; j <= room.Width - item.Width; j++)
+            for (int j = 0; j <= width - item.Width; j++)
             {
                 if (CanPlaceFurniture(i, j, item))
                 {
