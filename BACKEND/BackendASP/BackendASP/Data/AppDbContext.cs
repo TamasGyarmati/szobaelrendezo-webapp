@@ -13,7 +13,7 @@ public class AppDbContext : DbContext
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        string connString = "Server=localhost,1433;Database=szobaelrendezoDb;User Id=sa;Password=FullstackPassword123!;TrustServerCertificate=True";
+        string connString = "Server=localhost,1433;Database=szobaelrendezoDb;User Id=sa;Password=SqlServerPassw0rd!;TrustServerCertificate=True";
         optionsBuilder.UseSqlServer(connString);
         base.OnConfiguring(optionsBuilder);
     }
