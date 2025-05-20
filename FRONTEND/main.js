@@ -63,6 +63,9 @@ displayRoom();
 function AlertWrite(x, y) {
     x.innerHTML = y;
     x.classList.remove("d-none");
+    setTimeout(() => {
+            x.classList.add("d-none");
+        }, 2500);
 }
 
 // Szoba méret mentés gomb
@@ -311,6 +314,17 @@ function renderItemsInRoom(coords) {
             renderedSomething = false; // Sikertelen renderelés
             AlertWrite(lightAlert, "<strong>Több elemet már nem lehet berakni!</strong>");
             removeLastItem(); // Azért kell törölni, mert ilyenkor már bekerült a tömbbe és az adatbázisba!
+
+            setTimeout(() => {
+                // Töröljük az eddig kirenderelt itemeket
+                const existingItems = roomElement.querySelectorAll(".item");
+                existingItems.forEach(el => el.remove());
+
+                // Újrarenderelés a frissített items listával
+                renderItemsInRoom(coords);
+            }, 2500); // 2,5s
+
+            break; // kilépünk a ciklusból, hogy ne próbálja tovább
         }
     }
     return renderedSomething; // Görgetéshez kell
