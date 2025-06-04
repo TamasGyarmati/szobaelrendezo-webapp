@@ -2,7 +2,7 @@ using BackendASP.Models;
 
 namespace BackendASP.Data;
 
-public class RoomRepository : IRoomRepository
+public class RoomRepository : IRepository<Room>
 {
     AppDbContext context;
     public RoomRepository(AppDbContext context)
@@ -21,6 +21,11 @@ public class RoomRepository : IRoomRepository
         return this.context.Rooms.FirstOrDefault(x => x.Id == id);
     }
 
+    public IEnumerable<Item> Read()
+    {
+        throw new NotImplementedException();
+    }
+
     public void Update(Room room)
     {
         Room toUpdate = this.Read(room.Id);
@@ -34,6 +39,14 @@ public class RoomRepository : IRoomRepository
     public void Delete(int id)
     {
         Room toDelete = this.Read(id);
+        this.context.Rooms.Remove(toDelete);
+
+        context.SaveChanges();
+    }
+
+    public void DeleteAll()
+    {
+        Room toDelete = this.Read(1);
         this.context.Rooms.Remove(toDelete);
 
         context.SaveChanges();
