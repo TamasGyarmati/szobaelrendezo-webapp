@@ -2,7 +2,7 @@ using BackendASP.Models;
 
 namespace BackendASP.Data;
 
-public class RoomRepository : IRepository<Room>
+public class RoomRepository : IRepositoryCRUD<Room>
 {
     AppDbContext context;
     public RoomRepository(AppDbContext context)

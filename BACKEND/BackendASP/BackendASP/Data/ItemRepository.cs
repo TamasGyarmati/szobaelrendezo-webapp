@@ -2,7 +2,7 @@ using BackendASP.Models;
 
 namespace BackendASP.Data;
 
-public class ItemRepository : IRepository<Item>
+public class ItemRepository : IRepositoryPLUS<Item>
 {
     AppDbContext context;
     public ItemRepository(AppDbContext context)

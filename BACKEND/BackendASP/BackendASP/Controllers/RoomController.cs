@@ -8,8 +8,8 @@ namespace BackendASP.Controllers;
 [Route("[controller]")]
 public class RoomController : ControllerBase
 {
-    IRoomRepository repo;
-    public RoomController(IRoomRepository repo)
+    IRepositoryCRUD<Room> repo;
+    public RoomController(IRepositoryCRUD<Room> repo)
     {
         this.repo = repo;
     }

@@ -4,10 +4,10 @@ using BackendASP.Models;
 namespace BackendASP.Services;
 public class RoomPlannerService : IRoomPlannerService
 {
-    IRoomRepository roomRepo;
-    IItemRepository itemRepo;
+    IRepositoryCRUD<Room> roomRepo;
+    IRepositoryPLUS<Item> itemRepo;
 
-    public RoomPlannerService(IRoomRepository roomRepo, IItemRepository itemRepo)
+    public RoomPlannerService(IRepositoryCRUD<Room> roomRepo, IRepositoryPLUS<Item> itemRepo)
     {
         this.roomRepo = roomRepo;
         this.itemRepo = itemRepo;
